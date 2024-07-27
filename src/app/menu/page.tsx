@@ -1,4 +1,6 @@
 "use client";
+import { Metadata } from 'next';
+import { NextSeo } from 'next-seo';
 import React, { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 
@@ -215,7 +217,28 @@ const MenuPage: React.FC = () => {
     setSelectedItem(null);
   };
 
+
   return (
+    <>
+    <NextSeo
+      title="Menu | Hira Restaurant"
+      description="Explore our delicious menu at Hira Restaurant. We offer a wide variety of dishes including appetizers, main courses, desserts, and vegan options. Visit us today and indulge in a culinary experience like no other."
+      canonical="https://www.example.com/menu"
+      openGraph={{
+        url: "https://www.example.com/menu",
+        title: "Menu | Hira Restaurant",
+        description: "Explore our delicious menu at Hira Restaurant. We offer a wide variety of dishes including appetizers, main courses, desserts, and vegan options. Visit us today and indulge in a culinary experience like no other.",
+        images: [
+          {
+            url: "https://www.example.com/images/menu.jpg",
+            width: 800,
+            height: 600,
+            alt: "Hira Restaurant Menu",
+          },
+        ],
+        site_name: "Hira Restaurant",
+      }}
+    />
     <section className="py-16 max-w-screen-xl mx-auto mt-8">
       <div className="container mx-auto px-4">
         <div className="mb-8 flex flex-wrap justify-center gap-2">
@@ -238,7 +261,7 @@ const MenuPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredItems.map((item) => (
             <div key={item.id} className="relative bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group">
-              <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-lg mb-4 transition-transform transform group-hover:scale-105" />
+              <img  src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-lg mb-4 transition-transform transform group-hover:scale-105" />
               {/* <div className="absolute top-4 left-4 bg-primary text-white text-sm font-semibold px-2 py-1 rounded">
                 {menuCategories.find(category => category.items.includes(item))?.category}
               </div> */}
@@ -271,6 +294,7 @@ const MenuPage: React.FC = () => {
         </div>
       )}
     </section>
+    </>
   );
 };
 

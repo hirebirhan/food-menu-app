@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     "Welcome to Hira Restaurant, where you can enjoy the best dining experience in town. We offer a wide range of delicious dishes prepared by our talented chefs. Visit us today and indulge in a culinary journey like no other.",
   keywords:
     "Hira Restaurant, dining experience, delicious dishes, talented chefs, culinary journey",
-  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({
@@ -22,6 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
           <Header />

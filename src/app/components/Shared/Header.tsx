@@ -40,7 +40,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="#services" className="block py-2 px-3 text-gray-900 rounded hover:bg-primary hover:text-white md:hover:bg-transparent md:hover:text-primary md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+              <Link href="/services" className="block py-2 px-3 text-gray-900 rounded hover:bg-primary hover:text-white md:hover:bg-transparent md:hover:text-primary md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                 Services
               </Link>
             </li>
