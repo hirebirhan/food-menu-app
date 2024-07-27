@@ -1,7 +1,22 @@
 "use client";
 import React, { useState } from 'react';
+import { FaEye } from 'react-icons/fa';
 
-const menuCategories = [
+interface MenuItem {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  vegan: boolean;
+}
+
+interface MenuCategory {
+  category: string;
+  items: MenuItem[];
+}
+
+const menuCategories: MenuCategory[] = [
   {
     category: "Starters",
     items: [
@@ -161,14 +176,44 @@ const menuCategories = [
       },
     ],
   },
+  {
+    category: "Vegan",
+    items: [
+      {
+        id: 19,
+        name: "Vegan Burger",
+        price: 12,
+        description: "Plant-based patty, lettuce, tomato, vegan mayo, whole wheat bun.",
+        image: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+        vegan: true,
+      },
+      {
+        id: 20,
+        name: "Vegan Pizza",
+        price: 15,
+        description: "Tomato sauce, vegan cheese, bell peppers, onions, olives.",
+        image: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+        vegan: true,
+      },
+    ],
+  },
 ];
 
-const MenuPage = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
+const MenuPage: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
-  const filteredItems = activeCategory === 'All'
+  const filteredItems: MenuItem[] = activeCategory === 'All'
     ? menuCategories.flatMap(category => category.items)
     : menuCategories.find(category => category.category === activeCategory)?.items || [];
+
+  const handleItemClick = (item: MenuItem) => {
+    setSelectedItem(item);
+  };
+
+  const closeModal = () => {
+    setSelectedItem(null);
+  };
 
   return (
     <section className="py-16 max-w-screen-xl mx-auto mt-8">
@@ -192,18 +237,39 @@ const MenuPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredItems.map((item) => (
-            <div key={item.id} className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-lg mb-4" />
-              <div className="flex justify-between items-center mb-2  p-2 rounded">
-                <h3 className="text-lg font-bold">{item.name}</h3>
+            <div key={item.id} className="relative bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 group">
+              <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-lg mb-4 transition-transform transform group-hover:scale-105" />
+              {/* <div className="absolute top-4 left-4 bg-primary text-white text-sm font-semibold px-2 py-1 rounded">
+                {menuCategories.find(category => category.items.includes(item))?.category}
+              </div> */}
+              <div className="flex justify-between items-center mb-2 p-2">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{item.name}</h3>
                 <span className="bg-secondary text-white text-lg font-semibold px-2 py-1 rounded">${item.price}</span>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-4">{item.description}</p>
-              {/* {item.vegan && <span className="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">Vegan</span>} */}
+              {/* <button onClick={() => handleItemClick(item)} className="absolute top-4 right-4 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-dark transition-colors">
+                <FaEye />
+              </button> */}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal for item details */}
+      {selectedItem && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-2xl font-bold mb-4">{selectedItem.name}</h2>
+            <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-48 object-cover rounded-lg mb-4" />
+            <p className="text-gray-700 dark:text-gray-300 mb-4">{selectedItem.description}</p>
+            <span className="bg-secondary text-white text-lg font-semibold px-4 py-2 rounded">${selectedItem.price}</span>
+            <div className="mt-4 flex space-x-2">
+              <button onClick={closeModal} className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-dark transition-colors">Close</button>
+              <button className="bg-secondary text-white px-4 py-2 rounded hover:bg-secondary-dark transition-colors">Order Now</button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
