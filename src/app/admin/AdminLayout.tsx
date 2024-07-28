@@ -1,7 +1,7 @@
 "use client";
 import React, { ReactNode, useState } from 'react';
 import Link from 'next/link';
-import { FaBars, FaBell, FaTachometerAlt, FaEnvelope, FaCog, FaUser, FaChevronLeft, FaChevronRight, FaUserCircle } from 'react-icons/fa';
+import { FaBars, FaBell, FaTachometerAlt, FaEnvelope, FaCog, FaUser, FaChevronLeft, FaChevronRight, FaUserCircle, FaPlusSquare } from 'react-icons/fa';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -22,11 +22,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-neutral-cream">
+    <div className="flex h-screen">
       <Sidebar isCollapsed={isSidebarCollapsed} onToggle={handleSidebarToggle} />
-      <div className="flex flex-col flex-1 overflow-y-auto">
+      <div className="flex flex-col flex-1">
         <TopBar onSidebarToggle={handleSidebarToggle} />
-        <div className="p-6">{children}</div>
+        <main className="flex-1 overflow-y-auto p-6">
+          {children}
+        </main>
       </div>
     </div>
   );
@@ -47,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
         </button>
       </div>
       <div className="flex flex-col flex-1 overflow-y-auto">
-        <div className="flex items-center justify-center p-4 bg-neutral-charcoal">
+        <div className="flex items-center justify-left p-4 bg-neutral-charcoal">
           <FaUser className="h-12 w-12 text-neutral-cream" />
           {!isCollapsed && (
             <div className="ml-4">
@@ -57,9 +59,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
           )}
         </div>
         <nav className="flex-1 px-2 py-4 space-y-2">
-          <SidebarLink href="#" label="Dashboard" icon={FaTachometerAlt} isCollapsed={isCollapsed} />
+          <SidebarLink href="/admin" label="Dashboard" icon={FaTachometerAlt} isCollapsed={isCollapsed} />
           <SidebarLink href="#" label="Messages" icon={FaEnvelope} isCollapsed={isCollapsed} />
           <SidebarLink href="#" label="Settings" icon={FaCog} isCollapsed={isCollapsed} />
+          <SidebarLink href="/admin/register" label="Add Menu Item" icon={FaPlusSquare} isCollapsed={isCollapsed} />
         </nav>
         <div className="px-2 py-4">
           <SidebarLink href="#" label="Profile" icon={FaUser} isCollapsed={isCollapsed} />
