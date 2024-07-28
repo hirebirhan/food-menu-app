@@ -1,20 +1,28 @@
 import React from 'react';
 
-
-const Feature = ({ title, description, image }:{title:string, description:string,image:string }) => {
+const Feature = ({ title, description, image }: { title: string, description: string, image: string }) => {
   return (
-    <div className="max-w-sm mx-auto bg-foreground border hover:shadow-lg border-gray-200 rounded-lg shadow-sm">
+    <div className="relative max-w-xs mx-auto bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transform transition-transform duration-300 hover:scale-105 overflow-hidden">
       <div className="relative">
-        <img className="rounded-t-lg w-full h-56 object-cover" src={image} alt={title} />
-        <div className="absolute inset-0 bg-black bg-opacity-25 rounded-t-lg"></div>
+        <img className="w-full h-56 object-cover rounded-t-xl" src={image} alt={title} />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary to-transparent opacity-50"></div>
+        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-center">
+          <h5 className="text-2xl font-semibold text-primary mb-2">{title}</h5>
+          <p className="text-sm text-secondary">{description}</p>
+        </div>
       </div>
-      <div className="p-6 text-center">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">{title}</h5>
-        <p className="mb-3 font-normal">{description}</p>
+      <div className="p-4">
+        <button className="w-full py-2 px-4 text-base font-medium text-white bg-primary rounded-lg shadow-sm hover:bg-primary-dark transition-colors duration-300">
+          Learn More
+        </button>
       </div>
     </div>
   );
 };
+
+
+
+
 
 const FeaturesServices = () => {
   return (
